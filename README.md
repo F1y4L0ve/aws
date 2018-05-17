@@ -1,2 +1,2 @@
 # aws
-test
+just a test
