@@ -33,5 +33,4 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile 'com.amazonaws:aws-java-sdk-ec2'
     compile 'com.amazonaws:aws-java-sdk-sts'
-	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
