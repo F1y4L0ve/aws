@@ -1,11 +1,20 @@
 package jp.co.wqf.ec2web.controller;
 
+import java.io.IOException;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenService;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClientBuilder;
 import com.amazonaws.services.securitytoken.model.AssumeRoleRequest;
@@ -31,6 +40,17 @@ public class TokenController {
 		// GetSessionTokenResult sessionToken = sts.getSessionToken();
 		// Credentials credentials = sessionToken.getCredentials();
 
+		AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.AP_NORTHEAST_1)
+				.withCredentials(
+						new AWSStaticCredentialsProvider(new BasicSessionCredentials(credentials.getAccessKeyId(),
+								credentials.getSecretAccessKey(), credentials.getSessionToken())))
+				.build();
+		try (S3Object object = s3.getObject("weiqingfei-img", "test.txt")) {
+			System.out.println("ContentType:" + object.getObjectMetadata().getContentType());
+		} catch (SdkClientException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return credentials;
 	}
 }
