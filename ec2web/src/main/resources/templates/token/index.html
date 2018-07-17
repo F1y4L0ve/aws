@@ -2,18 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Test</title>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.264.1.min.js"></script>
-    <script th:src="@{app.js}"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.275.1.min.js"></script>
 </head>
 <body>
-    <h1>credentials</h1>
+    <h1>My Photo Albums App</h1>
     <hr>
-    <div>
-        <ul th:object="${credentials}">
-            <li th:text="*{accessKeyId}"></li>
-            <li th:text="*{secretAccessKey}"></li>
-            <li th:text="*{sessionToken}"></li>
-        </ul>
-    </div>
+    <div id="app"></div>
+    <input type="hidden" id="accessKeyId" th:value="${credentials.accessKeyId}"/>
+    <input type="hidden" id="secretAccessKey" th:value="${credentials.secretAccessKey}"/>
+    <input type="hidden" id="sessionToken" th:value="${credentials.sessionToken}"/>
+    <script th:src="@{app.js}"></script>
+    <script>
+       function getHtml(template) {
+          return template.join('\n');
+       }
+       listAlbums();
+    </script>
 </body>
 </html>
