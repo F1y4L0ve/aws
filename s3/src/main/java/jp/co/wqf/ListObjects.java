@@ -11,7 +11,7 @@ public class ListObjects {
 		s3.listBuckets().forEach(b -> {
 			System.out.println(b.getName());
 			ListObjectsV2Result ret = s3.listObjectsV2(
-					new ListObjectsV2Request().withBucketName(b.getName()).withDelimiter("/").withPrefix("ico/"));
+					new ListObjectsV2Request().withBucketName(b.getName()).withDelimiter("/").withPrefix("bbb/"));
 			ret.getObjectSummaries().forEach(o -> {
 				System.out.println(o.getKey());
 			});

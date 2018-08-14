@@ -134,7 +134,7 @@ function addPhoto(albumName) {
 	  }
 	  var file = files[0];
 	  var fileName = file.name;
-	  var albumPhotosKey = encodeURIComponent(albumName) + '//';
+	  var albumPhotosKey = encodeURIComponent(albumName) + '/';
 
 	  var photoKey = albumPhotosKey + fileName;
 	  s3.upload({
