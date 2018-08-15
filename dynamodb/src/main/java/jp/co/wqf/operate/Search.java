@@ -34,7 +34,7 @@ public class Search {
 
 		QuerySpec querySpec = new QuerySpec().withProjectionExpression("#yr, title, info.genres, info.actors[0]")
 				.withKeyConditionExpression("#yr = :yyyy and title between :letter1 and :letter2").withNameMap(nameMap)
-				.withValueMap(valueMap);
+				.withValueMap(valueMap).withScanIndexForward(false);
 		ItemCollection<QueryOutcome> items = table.query(querySpec);
 		Iterator<Item> iterator = items.iterator();
 		while (iterator.hasNext()) {
