@@ -1,4 +1,4 @@
-package jp.co.wqf;
+package jp.co.wqf.operate;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,13 +15,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class Insert {
+import jp.co.wqf.DynamoDBUtils;
+
+public class LoadData {
 
 	public static void main(String[] args) throws JsonParseException, IOException {
 		AmazonDynamoDB client = DynamoDBUtils.getDynamoDB();
 		DynamoDB db = new DynamoDB(client);
 		Table table = db.getTable("Movies");
-		String jsonfile = Insert.class.getResource("moviedata.json").getPath();
+		String jsonfile = LoadData.class.getResource("moviedata.json").getPath();
 		JsonParser parser = new JsonFactory().createParser(new File(jsonfile));
 		JsonNode rootNode = new ObjectMapper().readTree(parser);
 		Iterator<JsonNode> iter = rootNode.iterator();
